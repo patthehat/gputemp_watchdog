@@ -39,7 +39,7 @@ while (1){
 
 			#check whether the RegEx found something, print result
 			if (defined $1){
-				print "Current temperature of GPU ".$index." is ".$1."\n";
+				print localtime." Current temperature of GPU ".$index." is ".$1."\n";
 				$temperature = $1;
 			}
 		}
