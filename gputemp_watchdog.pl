@@ -26,14 +26,12 @@ while (1){
 		#set $temperature to 0
 		$temperature = 0;
 		
-		#call aticonfig to read out temp, save output in temperature.tmp (overwrite)
-		system "aticonfig --odgt --adapter=$1 > temperature.tmp";
-		
-		#read in temperature.tmp
-		open(TEMPERATURE, "<", "temperature.tmp") or die("Could not open temperature.tmp.");
+		#call aticonfig to read out temp, save output in Array aticonfig (overwrite)
+		my @aticonfig = qx(aticonfig --odgt --adapter=$1);
+
 
 		#read in all lines of temperature.tmp one by one 
-		while (<TEMPERATURE>){
+		foreach(@aticonfig){
 			#look for defined regex (search for temperature value), saved in $1 (defined by the brackets)
 			$_ =~ m/Temperature\s-\s(\d*)\.\d*\sC/g;
 
@@ -43,7 +41,7 @@ while (1){
 				$temperature = $1;
 			}
 		}
-		close(TEMPERATURE);
+
 
 		#check whether measured temperature exceeds max temperature
 		if ($temperature > $maxtemp){
