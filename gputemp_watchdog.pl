@@ -51,7 +51,7 @@ while (1){
 			print "Shutting down system\n";
 			#system "sudo shutdown now";
 			open(LOG, ">>", "log.txt");
-			print LOG localtime." System shutdown. Temerature on GPU ".$i" exceeded defined max temperature: ".$temperature."° C - ".$maxtemp."° C\n";
+			print LOG localtime." System shutdown. Temerature on GPU ".$index" exceeded defined max temperature: ".$temperature."° C - ".$maxtemp."° C\n";
 			close(LOG);
 			sleep 5;
 			system "sudo shutdown now";
@@ -59,5 +59,5 @@ while (1){
 	}
 	#wait 5 seconds
 	sleep 5;
-	$i = 0;
+	$index = 0;
 }
